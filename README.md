@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+This project was based on the youtube tutorial [Create a Movie Watchlist with React Hooks, Context API and localStorage](https://www.youtube.com/watch?v=1eO_hNYzaSc&list=LL&index=3) by [Matt the Dev](https://www.youtube.com/channel/UC8TIe9eTW263BU9uLXLr5sw).
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
