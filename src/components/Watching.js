@@ -1,9 +1,34 @@
-import React from 'react'
+import React, { useContext } from "react";
+import { GlobalContext } from "../context/GlobalState";
+import { TvSeriesCard } from "./TvSeriesCard";
 
 export const Watching = () => {
+  const { watching } = useContext(GlobalContext);
+
   return (
-    <div>
-      <h1>Watching Page</h1>
+    <div className="tv-series-page">
+      <div className="container">
+        <div className="header">
+          <h1 className="heading">Currently Watching</h1>
+          <span className="count-pill">
+            {watching.length} {watching.length === 1 ? "Show" : "Shows"}
+          </span>
+        </div>
+
+        {watching.length > 0 ? (
+          <div className="tv-series-grid">
+            {watching.map(tvSeries => (
+              <TvSeriesCard
+                tvSeries={tvSeries}
+                type="watching"
+                key={tvSeries.id}
+              />
+            ))}
+          </div>
+        ) : (
+          <h2 className="no-movies">No movies in your list, add some!</h2>
+        )}
+      </div>
     </div>
-  )
-}
+  );
+};

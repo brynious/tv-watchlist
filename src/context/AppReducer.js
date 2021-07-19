@@ -21,6 +21,9 @@ const AppReducer = (state, action) => {
         watchlist: state.watchlist.filter(
           tvSeries => tvSeries.id !== action.payload.id
         ),
+        watching: state.watching.filter(
+          tvSeries => tvSeries.id !== action.payload.id
+        ),
         watched: [action.payload, ...state.watched],
       };
     case "MOVE_TO_WATCHLIST":
@@ -35,6 +38,18 @@ const AppReducer = (state, action) => {
       return {
         ...state,
         watched: state.watched.filter(
+          tvSeries => tvSeries.id !== action.payload
+        ),
+      };
+    case "ADD_TO_WATCHING":
+      return {
+        ...state,
+        watching: [action.payload, ...state.watching],
+      };
+    case "REMOVE_FROM_WATCHING":
+      return {
+        ...state,
+        watching: state.watching.filter(
           tvSeries => tvSeries.id !== action.payload
         ),
       };

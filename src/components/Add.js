@@ -7,7 +7,9 @@ export const Add = () => {
 
   const onChange = e => {
     e.preventDefault();
+
     setQuery(e.target.value);
+
     fetch(
       `https://api.themoviedb.org/3/search/tv?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1&include_adult=false&query=${e.target.value}`
     )
