@@ -33,6 +33,7 @@ export const Add = () => {
               placeholder="Search for a television show..."
               value={query}
               onChange={onChange}
+              autoFocus
             />
           </div>
 

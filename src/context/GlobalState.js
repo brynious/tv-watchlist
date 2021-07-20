@@ -32,17 +32,22 @@ export const GlobalProvider = props => {
     dispatch({ type: "ADD_SERIES_TO_WATCHLIST", payload: tvSeries });
   };
 
-  const removeSeriesFromWatchlist = id => {
-    dispatch({ type: "REMOVE_SERIES_FROM_WATCHLIST", payload: id });
+  // add to watching
+  const addSeriesToWatching = tvSeries => {
+    dispatch({ type: "ADD_TO_WATCHING", payload: tvSeries });
   };
 
   const addSeriesToWatched = tvSeries => {
     dispatch({ type: "ADD_SERIES_TO_WATCHED", payload: tvSeries });
   };
 
-  // move to watchlist
-  const moveToWatchlist = tvSeries => {
-    dispatch({ type: "MOVE_TO_WATCHLIST", payload: tvSeries });
+  const removeFromWatchlist = id => {
+    dispatch({ type: "REMOVE_FROM_WATCHLIST", payload: id });
+  };
+
+  // remove from watching
+  const removeFromWatching = id => {
+    dispatch({ type: "REMOVE_FROM_WATCHING", payload: id });
   };
 
   // remove from watched
@@ -50,13 +55,17 @@ export const GlobalProvider = props => {
     dispatch({ type: "REMOVE_FROM_WATCHED", payload: id });
   };
 
-  // add to watching
-  const addSeriesToWatching = tvSeries => {
-    dispatch({ type: "ADD_TO_WATCHING", payload: tvSeries });
+  // move to watchlist
+  const moveToWatchlist = tvSeries => {
+    dispatch({ type: "MOVE_TO_WATCHLIST", payload: tvSeries });
   };
 
-  const removeFromWatching = id => {
-    dispatch({ type: "REMOVE_FROM_WATCHING", payload: id });
+  const moveToWatching = tvSeries => {
+    dispatch({ type: "MOVE_TO_WATCHING", payload: tvSeries });
+  };
+
+  const moveToWatched = tvSeries => {
+    dispatch({ type: "MOVE_TO_WATCHED", payload: tvSeries });
   };
 
   return (
@@ -66,12 +75,14 @@ export const GlobalProvider = props => {
         watching: state.watching,
         watched: state.watched,
         addSeriesToWatchlist,
-        removeSeriesFromWatchlist,
-        addSeriesToWatched,
-        moveToWatchlist,
-        removeFromWatched,
         addSeriesToWatching,
+        addSeriesToWatched,
+        removeFromWatchlist,
+        removeFromWatched,
         removeFromWatching,
+        moveToWatchlist,
+        moveToWatching,
+        moveToWatched,
       }}
     >
       {props.children}

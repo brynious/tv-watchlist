@@ -3,29 +3,29 @@ import { GlobalContext } from "../context/GlobalState";
 
 export const TvSeriesControls = ({ tvSeries, type }) => {
   const {
-    removeSeriesFromWatchlist,
-    addSeriesToWatched,
-    moveToWatchlist,
+    removeFromWatchlist,
     removeFromWatched,
     removeFromWatching,
+    moveToWatchlist,
+    moveToWatching,
+    moveToWatched,
   } = useContext(GlobalContext);
 
   return (
     <div className="inner-card-controls">
       {type === "watchlist" && (
         <>
-          <button className="ctrl-btn">
+          <button className="ctrl-btn" onClick={() => moveToWatching(tvSeries)}>
             <i className="fa-fw far fa-eye"></i>
           </button>
-          <button
-            className="ctrl-btn"
-            onClick={() => addSeriesToWatched(tvSeries)}
-          >
+
+          <button className="ctrl-btn" onClick={() => moveToWatched(tvSeries)}>
             <i className="fa-fw fas fa-check"></i>
           </button>
+
           <button
             className="ctrl-btn"
-            onClick={() => removeSeriesFromWatchlist(tvSeries.id)}
+            onClick={() => removeFromWatchlist(tvSeries.id)}
           >
             <i className="fa-fw fa fa-times"></i>
           </button>
@@ -36,8 +36,13 @@ export const TvSeriesControls = ({ tvSeries, type }) => {
         <>
           <button
             className="ctrl-btn"
-            onClick={() => addSeriesToWatched(tvSeries)}
+            onClick={() => moveToWatchlist(tvSeries)}
           >
+            {/* <i className="fa-fw far fa-eye-slash"></i> */}
+            <i className="fa-fw fas fa-clipboard-list"></i>
+          </button>
+
+          <button className="ctrl-btn" onClick={() => moveToWatched(tvSeries)}>
             <i className="fa-fw fas fa-check"></i>
           </button>
 
@@ -58,6 +63,10 @@ export const TvSeriesControls = ({ tvSeries, type }) => {
           >
             {/* <i className="fa-fw far fa-eye-slash"></i> */}
             <i className="fa-fw fas fa-clipboard-list"></i>
+          </button>
+
+          <button className="ctrl-btn" onClick={() => moveToWatching(tvSeries)}>
+            <i className="fa-fw far fa-eye"></i>
           </button>
 
           <button

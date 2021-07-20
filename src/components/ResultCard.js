@@ -11,17 +11,29 @@ export const ResultCard = ({ tvSeries }) => {
     watched,
   } = useContext(GlobalContext);
 
-  let storedSeries = watchlist.find(o => o.id === tvSeries.id);
+  let storedSeriesWatchlist = watchlist.find(o => o.id === tvSeries.id);
   let storedSeriesWatching = watching.find(o => o.id === tvSeries.id);
   let storedSeriesWatched = watched.find(o => o.id === tvSeries.id);
 
-  const watchlistDisabled = storedSeries
+  const watchlistDisabled = storedSeriesWatchlist
+    ? true
+    : storedSeriesWatched
+    ? true
+    : storedSeriesWatching
+    ? true
+    : false;
+
+  // const watchlistDisabled = storedSeriesWatchlist
+  //   ? true
+  //   : storedSeriesWatched
+  //   ? true
+  //   : false;
+
+  const watchingDisabled = storedSeriesWatching
     ? true
     : storedSeriesWatched
     ? true
     : false;
-
-  const watchingDisabled = storedSeriesWatching ? true : false;
 
   const watchedDisabled = storedSeriesWatched ? true : false;
 
@@ -55,7 +67,7 @@ export const ResultCard = ({ tvSeries }) => {
               disabled={watchlistDisabled}
               onClick={() => addSeriesToWatchlist(tvSeries)}
             >
-              Add to Watchlist
+              Watchlist
             </button>
 
             <button
@@ -63,7 +75,7 @@ export const ResultCard = ({ tvSeries }) => {
               disabled={watchingDisabled}
               onClick={() => addSeriesToWatching(tvSeries)}
             >
-              Add to Watching
+              Watching
             </button>
 
             <button
@@ -71,7 +83,7 @@ export const ResultCard = ({ tvSeries }) => {
               disabled={watchedDisabled}
               onClick={() => addSeriesToWatched(tvSeries)}
             >
-              Add to Watched
+              Watched
             </button>
           </div>
         </div>
