@@ -1,17 +1,28 @@
 import React, { createContext, useReducer, useEffect } from "react";
 import AppReducer from "./AppReducer";
+import axios from "axios";
+
+console.log("local:", localStorage.getItem("watchlist"));
+console.log("local parsed:", JSON.parse(localStorage.getItem("watchlist")));
+
+// // initial state
+// const initialState = {
+//   watchlist: localStorage.getItem("watchlist")
+//     ? JSON.parse(localStorage.getItem("watchlist"))
+//     : [],
+//   watching: localStorage.getItem("watching")
+//     ? JSON.parse(localStorage.getItem("watching"))
+//     : [],
+//   watched: localStorage.getItem("watched")
+//     ? JSON.parse(localStorage.getItem("watched"))
+//     : [],
+// };
 
 // initial state
 const initialState = {
-  watchlist: localStorage.getItem("watchlist")
-    ? JSON.parse(localStorage.getItem("watchlist"))
-    : [],
-  watching: localStorage.getItem("watching")
-    ? JSON.parse(localStorage.getItem("watching"))
-    : [],
-  watched: localStorage.getItem("watched")
-    ? JSON.parse(localStorage.getItem("watched"))
-    : [],
+  watchlist: [],
+  watching: [],
+  watched: [],
 };
 
 // create context
@@ -21,11 +32,39 @@ export const GlobalContext = createContext(initialState);
 export const GlobalProvider = props => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
+  // useEffect(() => {
+  //   localStorage.setItem("watchlist", JSON.stringify(state.watchlist));
+  //   localStorage.setItem("watching", JSON.stringify(state.watching));
+  //   localStorage.setItem("watched", JSON.stringify(state.watched));
+  // }, [state]);
+
   useEffect(() => {
-    localStorage.setItem("watchlist", JSON.stringify(state.watchlist));
-    localStorage.setItem("watching", JSON.stringify(state.watching));
-    localStorage.setItem("watched", JSON.stringify(state.watched));
-  }, [state]);
+    axios
+      .get("http://localhost:8082/api/series/status=watchlist")
+      .then(response => {
+        console.log("response data", response.data);
+        dispatch({
+          type: "INITIALIZE_WATCHLIST",
+          payload: response.data,
+        });
+      });
+    axios
+      .get("http://localhost:8082/api/series/status=watching")
+      .then(response => {
+        dispatch({
+          type: "INITIALIZE_WATCHING",
+          payload: response.data,
+        });
+      });
+    axios
+      .get("http://localhost:8082/api/series/status=watched")
+      .then(response => {
+        dispatch({
+          type: "INITIALIZE_WATCHED",
+          payload: response.data,
+        });
+      });
+  }, []);
 
   // actions
   const addSeriesToWatchlist = tvSeries => {
