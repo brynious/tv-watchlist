@@ -20,6 +20,9 @@ export const Add = () => {
         } else {
           setResults([]);
         }
+      })
+      .catch(err => {
+        console.log(err);
       });
   };
 
