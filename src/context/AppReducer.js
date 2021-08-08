@@ -2,15 +2,18 @@ const AppReducer = (state, action) => {
   switch (action.type) {
     case "INITIALIZE_WATCHLIST":
       return {
-        watchlist: [action.payload],
+        ...state,
+        watchlist: [...action.payload],
       };
     case "INITIALIZE_WATCHING":
       return {
-        watching: [action.payload],
+        ...state,
+        watching: [...action.payload],
       };
     case "INITIALIZE_WATCHED":
       return {
-        watched: [action.payload],
+        ...state,
+        watched: [...action.payload],
       };
 
     case "ADD_SERIES_TO_WATCHLIST":

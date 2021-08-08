@@ -2,10 +2,7 @@ import React, { createContext, useReducer, useEffect } from "react";
 import AppReducer from "./AppReducer";
 import axios from "axios";
 
-console.log("local:", localStorage.getItem("watchlist"));
-console.log("local parsed:", JSON.parse(localStorage.getItem("watchlist")));
-
-// // initial state
+// // ORIGINAL initial state
 // const initialState = {
 //   watchlist: localStorage.getItem("watchlist")
 //     ? JSON.parse(localStorage.getItem("watchlist"))
@@ -18,7 +15,7 @@ console.log("local parsed:", JSON.parse(localStorage.getItem("watchlist")));
 //     : [],
 // };
 
-// initial state
+// NEW initial state
 const initialState = {
   watchlist: [],
   watching: [],
@@ -32,12 +29,14 @@ export const GlobalContext = createContext(initialState);
 export const GlobalProvider = props => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
+  // // ORIGINAL hasMounted() HOOK
   // useEffect(() => {
   //   localStorage.setItem("watchlist", JSON.stringify(state.watchlist));
   //   localStorage.setItem("watching", JSON.stringify(state.watching));
   //   localStorage.setItem("watched", JSON.stringify(state.watched));
   // }, [state]);
 
+  // NEW hasMounted() HOOK
   useEffect(() => {
     axios
       .get("http://localhost:8082/api/series/status=watchlist")
