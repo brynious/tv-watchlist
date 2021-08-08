@@ -20,7 +20,7 @@ export const Watched = () => {
               <TvSeriesCard
                 tvSeries={tvSeries}
                 type="watched"
-                key={tvSeries.id}
+                key={tvSeries._id}
               />
             ))}
           </div>

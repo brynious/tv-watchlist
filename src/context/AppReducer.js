@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const AppReducer = (state, action) => {
   switch (action.type) {
     case "INITIALIZE_WATCHLIST":
@@ -17,10 +19,24 @@ const AppReducer = (state, action) => {
       };
 
     case "ADD_SERIES_TO_WATCHLIST":
+      axios
+        .post("http://localhost:8082/api/series", {
+          title: action.payload.name,
+          tmdb_id: action.payload.id,
+          overview: action.payload.overview,
+          first_air_date: action.payload.first_air_date,
+          backdrop_path: action.payload.backdrop_path,
+          poster_path: action.payload.poster_path,
+          watch_status: "watchlist",
+        })
+        .catch(err => {
+          console.log("Error adding series to watchlist");
+        });
       return {
         ...state,
         watchlist: [action.payload, ...state.watchlist],
       };
+
     case "ADD_TO_WATCHING":
       return {
         ...state,

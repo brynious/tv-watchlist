@@ -11,9 +11,9 @@ export const ResultCard = ({ tvSeries }) => {
     watched,
   } = useContext(GlobalContext);
 
-  let storedSeriesWatchlist = watchlist.find(o => o.id === tvSeries.id);
-  let storedSeriesWatching = watching.find(o => o.id === tvSeries.id);
-  let storedSeriesWatched = watched.find(o => o.id === tvSeries.id);
+  let storedSeriesWatchlist = watchlist.find(o => o.tmdb_id === tvSeries.id);
+  let storedSeriesWatching = watching.find(o => o.tmdb_id === tvSeries.id);
+  let storedSeriesWatched = watched.find(o => o.tmdb_id === tvSeries.id);
 
   const watchlistDisabled = storedSeriesWatchlist
     ? true

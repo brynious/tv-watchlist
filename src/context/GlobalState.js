@@ -41,7 +41,6 @@ export const GlobalProvider = props => {
     axios
       .get("http://localhost:8082/api/series/status=watchlist")
       .then(response => {
-        console.log("response data", response.data);
         dispatch({
           type: "INITIALIZE_WATCHLIST",
           payload: response.data,
