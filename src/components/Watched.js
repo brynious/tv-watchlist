@@ -16,12 +16,8 @@ export const Watched = () => {
 
         {watched.length > 0 ? (
           <div className="tv-series-grid">
-            {watched.map(tvSeries => (
-              <TvSeriesCard
-                tvSeries={tvSeries}
-                type="watched"
-                key={tvSeries._id}
-              />
+            {watched.map((tvSeries, index) => (
+              <TvSeriesCard tvSeries={tvSeries} type="watched" key={index} />
             ))}
           </div>
         ) : (

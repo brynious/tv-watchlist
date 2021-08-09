@@ -1,6 +1,16 @@
 import axios from "axios";
 
 const AppReducer = (state, action) => {
+  const data = {
+    title: action.payload.name,
+    tmdb_id: action.payload.id,
+    overview: action.payload.overview,
+    first_air_date: action.payload.first_air_date,
+    backdrop_path: action.payload.backdrop_path,
+    poster_path: action.payload.poster_path,
+    watch_status: "",
+  };
+
   switch (action.type) {
     case "INITIALIZE_WATCHLIST":
       return {
@@ -19,25 +29,17 @@ const AppReducer = (state, action) => {
       };
 
     case "ADD_SERIES_TO_WATCHLIST":
-      axios
-        .post("http://localhost:8082/api/series", {
-          title: action.payload.name,
-          tmdb_id: action.payload.id,
-          overview: action.payload.overview,
-          first_air_date: action.payload.first_air_date,
-          backdrop_path: action.payload.backdrop_path,
-          poster_path: action.payload.poster_path,
-          watch_status: "watchlist",
-        })
-        .catch(err => {
-          console.log("Error adding series to watchlist");
-        });
+      data.watch_status = "watchlist";
+      axios.post("http://localhost:8082/api/series", data).catch(err => {
+        console.log("Error adding series to watchlist");
+      });
       return {
         ...state,
-        watchlist: [action.payload, ...state.watchlist],
+        watchlist: [data, ...state.watchlist],
       };
 
     case "ADD_TO_WATCHING":
+      data.watch_status = "watching";
       return {
         ...state,
         watchlist: state.watchlist.filter(
@@ -45,6 +47,7 @@ const AppReducer = (state, action) => {
         ),
         watching: [action.payload, ...state.watching],
       };
+
     case "ADD_SERIES_TO_WATCHED":
       return {
         ...state,
@@ -58,24 +61,39 @@ const AppReducer = (state, action) => {
       };
 
     case "REMOVE_FROM_WATCHLIST":
+      axios
+        .delete(`http://localhost:8082/api/series/${action.payload}`)
+        .catch(err => {
+          console.log("Error removing series from watchlist");
+        });
       return {
         ...state,
         watchlist: state.watchlist.filter(
-          tvSeries => tvSeries.id !== action.payload
+          tvSeries => tvSeries._id !== action.payload
         ),
       };
     case "REMOVE_FROM_WATCHING":
+      axios
+        .delete(`http://localhost:8082/api/series/${action.payload}`)
+        .catch(err => {
+          console.log("Error removing series from watching");
+        });
       return {
         ...state,
         watching: state.watching.filter(
-          tvSeries => tvSeries.id !== action.payload
+          tvSeries => tvSeries._id !== action.payload
         ),
       };
     case "REMOVE_FROM_WATCHED":
+      axios
+        .delete(`http://localhost:8082/api/series/${action.payload}`)
+        .catch(err => {
+          console.log("Error removing series from watched");
+        });
       return {
         ...state,
         watched: state.watched.filter(
-          tvSeries => tvSeries.id !== action.payload
+          tvSeries => tvSeries._id !== action.payload
         ),
       };
 

@@ -25,7 +25,7 @@ export const TvSeriesControls = ({ tvSeries, type }) => {
 
           <button
             className="ctrl-btn"
-            onClick={() => removeFromWatchlist(tvSeries.id)}
+            onClick={() => removeFromWatchlist(tvSeries._id)}
           >
             <i className="fa-fw fa fa-times"></i>
           </button>
@@ -48,7 +48,7 @@ export const TvSeriesControls = ({ tvSeries, type }) => {
 
           <button
             className="ctrl-btn"
-            onClick={() => removeFromWatching(tvSeries.id)}
+            onClick={() => removeFromWatching(tvSeries._id)}
           >
             <i className="fa-fw fa fa-times"></i>
           </button>
@@ -71,7 +71,7 @@ export const TvSeriesControls = ({ tvSeries, type }) => {
 
           <button
             className="ctrl-btn"
-            onClick={() => removeFromWatched(tvSeries.id)}
+            onClick={() => removeFromWatched(tvSeries._id)}
           >
             <i className="fa-fw fa fa-times"></i>
           </button>

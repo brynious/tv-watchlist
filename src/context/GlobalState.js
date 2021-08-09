@@ -29,14 +29,6 @@ export const GlobalContext = createContext(initialState);
 export const GlobalProvider = props => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
-  // // ORIGINAL hasMounted() HOOK
-  // useEffect(() => {
-  //   localStorage.setItem("watchlist", JSON.stringify(state.watchlist));
-  //   localStorage.setItem("watching", JSON.stringify(state.watching));
-  //   localStorage.setItem("watched", JSON.stringify(state.watched));
-  // }, [state]);
-
-  // NEW hasMounted() HOOK
   useEffect(() => {
     axios
       .get("http://localhost:8082/api/series/status=watchlist")
@@ -78,18 +70,18 @@ export const GlobalProvider = props => {
     dispatch({ type: "ADD_SERIES_TO_WATCHED", payload: tvSeries });
   };
 
-  const removeFromWatchlist = id => {
-    dispatch({ type: "REMOVE_FROM_WATCHLIST", payload: id });
+  const removeFromWatchlist = _id => {
+    dispatch({ type: "REMOVE_FROM_WATCHLIST", payload: _id });
   };
 
   // remove from watching
-  const removeFromWatching = id => {
-    dispatch({ type: "REMOVE_FROM_WATCHING", payload: id });
+  const removeFromWatching = _id => {
+    dispatch({ type: "REMOVE_FROM_WATCHING", payload: _id });
   };
 
   // remove from watched
-  const removeFromWatched = id => {
-    dispatch({ type: "REMOVE_FROM_WATCHED", payload: id });
+  const removeFromWatched = _id => {
+    dispatch({ type: "REMOVE_FROM_WATCHED", payload: _id });
   };
 
   // move to watchlist
