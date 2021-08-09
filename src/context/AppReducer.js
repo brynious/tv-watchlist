@@ -2,8 +2,8 @@ import axios from "axios";
 
 const AppReducer = (state, action) => {
   const data = {
-    title: action.payload.name,
-    tmdb_id: action.payload.id,
+    title: action.payload.title,
+    tmdb_id: action.payload.tmdb_id,
     overview: action.payload.overview,
     first_air_date: action.payload.first_air_date,
     backdrop_path: action.payload.backdrop_path,
@@ -40,22 +40,29 @@ const AppReducer = (state, action) => {
 
     case "ADD_TO_WATCHING":
       data.watch_status = "watching";
+      axios.post("http://localhost:8082/api/series", data).catch(err => {
+        console.log("Error adding series to watching");
+      });
       return {
         ...state,
         watchlist: state.watchlist.filter(
-          tvSeries => tvSeries.id !== action.payload.id
+          tvSeries => tvSeries.tmdb_id !== data.tmdb_id
         ),
-        watching: [action.payload, ...state.watching],
+        watching: [data, ...state.watching],
       };
 
     case "ADD_SERIES_TO_WATCHED":
+      data.watch_status = "watched";
+      axios.post("http://localhost:8082/api/series", data).catch(err => {
+        console.log("Error adding series to watching");
+      });
       return {
         ...state,
         watchlist: state.watchlist.filter(
-          tvSeries => tvSeries.id !== action.payload.id
+          tvSeries => tvSeries.tmdb_id !== data.tmdb_id
         ),
         watching: state.watching.filter(
-          tvSeries => tvSeries.id !== action.payload.id
+          tvSeries => tvSeries.tmdb_id !== data.tmdb_id
         ),
         watched: [action.payload, ...state.watched],
       };
@@ -69,7 +76,7 @@ const AppReducer = (state, action) => {
       return {
         ...state,
         watchlist: state.watchlist.filter(
-          tvSeries => tvSeries._id !== action.payload
+          tvSeries => tvSeries.tmdb_id !== action.payload
         ),
       };
     case "REMOVE_FROM_WATCHING":
@@ -81,7 +88,7 @@ const AppReducer = (state, action) => {
       return {
         ...state,
         watching: state.watching.filter(
-          tvSeries => tvSeries._id !== action.payload
+          tvSeries => tvSeries.tmdb_id !== action.payload
         ),
       };
     case "REMOVE_FROM_WATCHED":
@@ -93,42 +100,55 @@ const AppReducer = (state, action) => {
       return {
         ...state,
         watched: state.watched.filter(
-          tvSeries => tvSeries._id !== action.payload
+          tvSeries => tvSeries.tmdb_id !== action.payload
         ),
       };
 
     case "MOVE_TO_WATCHLIST":
+      data.watch_status = "watchlist";
+      axios.post("http://localhost:8082/api/series", data).catch(err => {
+        console.log("Error adding series to watching");
+      });
       return {
         ...state,
-        watchlist: [action.payload, ...state.watchlist],
+        watchlist: [data, ...state.watchlist],
         watching: state.watching.filter(
-          tvSeries => tvSeries.id !== action.payload.id
+          tvSeries => tvSeries.tmdb_id !== data.tmdb_id
         ),
         watched: state.watched.filter(
-          tvSeries => tvSeries.id !== action.payload.id
+          tvSeries => tvSeries.tmdb_id !== data.tmdb_id
         ),
       };
     case "MOVE_TO_WATCHING":
+      data.watch_status = "watching";
+      axios.post("http://localhost:8082/api/series", data).catch(err => {
+        console.log("Error adding series to watching");
+      });
+
       return {
         ...state,
         watchlist: state.watchlist.filter(
-          tvSeries => tvSeries.id !== action.payload.id
+          tvSeries => tvSeries.tmdb_id !== data.tmdb_id
         ),
-        watching: [action.payload, ...state.watching],
+        watching: [data, ...state.watching],
         watched: state.watched.filter(
-          tvSeries => tvSeries.id !== action.payload.id
+          tvSeries => tvSeries.tmdb_id !== data.tmdb_id
         ),
       };
     case "MOVE_TO_WATCHED":
+      data.watch_status = "watched";
+      axios.post("http://localhost:8082/api/series", data).catch(err => {
+        console.log("Error adding series to watching");
+      });
       return {
         ...state,
         watchlist: state.watchlist.filter(
-          tvSeries => tvSeries.id !== action.payload.id
+          tvSeries => tvSeries.tmdb_id !== data.tmdb_id
         ),
         watching: state.watching.filter(
-          tvSeries => tvSeries.id !== action.payload.id
+          tvSeries => tvSeries.tmdb_id !== data.tmdb_id
         ),
-        watched: [action.payload, ...state.watched],
+        watched: [data, ...state.watched],
       };
     default:
       return state;

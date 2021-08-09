@@ -70,18 +70,18 @@ export const GlobalProvider = props => {
     dispatch({ type: "ADD_SERIES_TO_WATCHED", payload: tvSeries });
   };
 
-  const removeFromWatchlist = _id => {
-    dispatch({ type: "REMOVE_FROM_WATCHLIST", payload: _id });
+  const removeFromWatchlist = tmdb_id => {
+    dispatch({ type: "REMOVE_FROM_WATCHLIST", payload: tmdb_id });
   };
 
   // remove from watching
-  const removeFromWatching = _id => {
-    dispatch({ type: "REMOVE_FROM_WATCHING", payload: _id });
+  const removeFromWatching = tmdb_id => {
+    dispatch({ type: "REMOVE_FROM_WATCHING", payload: tmdb_id });
   };
 
   // remove from watched
-  const removeFromWatched = _id => {
-    dispatch({ type: "REMOVE_FROM_WATCHED", payload: _id });
+  const removeFromWatched = tmdb_id => {
+    dispatch({ type: "REMOVE_FROM_WATCHED", payload: tmdb_id });
   };
 
   // move to watchlist
