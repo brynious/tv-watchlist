@@ -2,6 +2,15 @@ import React, { useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
 
 export const ResultCard = ({ tvSeries }) => {
+  tvSeries = {
+    title: tvSeries.name,
+    tmdb_id: tvSeries.id,
+    overview: tvSeries.overview,
+    first_air_date: tvSeries.first_air_date,
+    backdrop_path: tvSeries.backdrop_path,
+    poster_path: tvSeries.poster_path,
+  };
+
   const {
     addSeriesToWatchlist,
     addSeriesToWatching,
@@ -11,9 +20,11 @@ export const ResultCard = ({ tvSeries }) => {
     watched,
   } = useContext(GlobalContext);
 
-  let storedSeriesWatchlist = watchlist.find(o => o.id === tvSeries.id);
-  let storedSeriesWatching = watching.find(o => o.id === tvSeries.id);
-  let storedSeriesWatched = watched.find(o => o.id === tvSeries.id);
+  let storedSeriesWatchlist = watchlist.find(
+    o => o.tmdb_id === tvSeries.tmdb_id
+  );
+  let storedSeriesWatching = watching.find(o => o.tmdb_id === tvSeries.tmdb_id);
+  let storedSeriesWatched = watched.find(o => o.tmdb_id === tvSeries.tmdb_id);
 
   const watchlistDisabled = storedSeriesWatchlist
     ? true

@@ -1,17 +1,25 @@
 import React, { createContext, useReducer, useEffect } from "react";
 import AppReducer from "./AppReducer";
+import axios from "axios";
 
-// initial state
+// // ORIGINAL initial state
+// const initialState = {
+//   watchlist: localStorage.getItem("watchlist")
+//     ? JSON.parse(localStorage.getItem("watchlist"))
+//     : [],
+//   watching: localStorage.getItem("watching")
+//     ? JSON.parse(localStorage.getItem("watching"))
+//     : [],
+//   watched: localStorage.getItem("watched")
+//     ? JSON.parse(localStorage.getItem("watched"))
+//     : [],
+// };
+
+// NEW initial state
 const initialState = {
-  watchlist: localStorage.getItem("watchlist")
-    ? JSON.parse(localStorage.getItem("watchlist"))
-    : [],
-  watching: localStorage.getItem("watching")
-    ? JSON.parse(localStorage.getItem("watching"))
-    : [],
-  watched: localStorage.getItem("watched")
-    ? JSON.parse(localStorage.getItem("watched"))
-    : [],
+  watchlist: [],
+  watching: [],
+  watched: [],
 };
 
 // create context
@@ -22,10 +30,37 @@ export const GlobalProvider = props => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
   useEffect(() => {
-    localStorage.setItem("watchlist", JSON.stringify(state.watchlist));
-    localStorage.setItem("watching", JSON.stringify(state.watching));
-    localStorage.setItem("watched", JSON.stringify(state.watched));
-  }, [state]);
+    axios
+      .get(
+        "https://smartroad-watchlist.herokuapp.com/api/series/status=watchlist"
+      )
+      .then(response => {
+        dispatch({
+          type: "INITIALIZE_WATCHLIST",
+          payload: response.data,
+        });
+      });
+    axios
+      .get(
+        "https://smartroad-watchlist.herokuapp.com/api/series/status=watching"
+      )
+      .then(response => {
+        dispatch({
+          type: "INITIALIZE_WATCHING",
+          payload: response.data,
+        });
+      });
+    axios
+      .get(
+        "https://smartroad-watchlist.herokuapp.com/api/series/status=watched"
+      )
+      .then(response => {
+        dispatch({
+          type: "INITIALIZE_WATCHED",
+          payload: response.data,
+        });
+      });
+  }, []);
 
   // actions
   const addSeriesToWatchlist = tvSeries => {
@@ -41,18 +76,18 @@ export const GlobalProvider = props => {
     dispatch({ type: "ADD_SERIES_TO_WATCHED", payload: tvSeries });
   };
 
-  const removeFromWatchlist = id => {
-    dispatch({ type: "REMOVE_FROM_WATCHLIST", payload: id });
+  const removeFromWatchlist = tmdb_id => {
+    dispatch({ type: "REMOVE_FROM_WATCHLIST", payload: tmdb_id });
   };
 
   // remove from watching
-  const removeFromWatching = id => {
-    dispatch({ type: "REMOVE_FROM_WATCHING", payload: id });
+  const removeFromWatching = tmdb_id => {
+    dispatch({ type: "REMOVE_FROM_WATCHING", payload: tmdb_id });
   };
 
   // remove from watched
-  const removeFromWatched = id => {
-    dispatch({ type: "REMOVE_FROM_WATCHED", payload: id });
+  const removeFromWatched = tmdb_id => {
+    dispatch({ type: "REMOVE_FROM_WATCHED", payload: tmdb_id });
   };
 
   // move to watchlist
