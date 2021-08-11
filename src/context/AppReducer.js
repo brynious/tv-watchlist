@@ -30,9 +30,11 @@ const AppReducer = (state, action) => {
 
     case "ADD_SERIES_TO_WATCHLIST":
       data.watch_status = "watchlist";
-      axios.post("http://localhost:8082/api/series", data).catch(err => {
-        console.log("Error adding series to watchlist");
-      });
+      axios
+        .post("https://smartroad-watchlist.herokuapp.com/api/series", data)
+        .catch(err => {
+          console.log("Error adding series to watchlist");
+        });
       return {
         ...state,
         watchlist: [data, ...state.watchlist],
@@ -40,9 +42,11 @@ const AppReducer = (state, action) => {
 
     case "ADD_TO_WATCHING":
       data.watch_status = "watching";
-      axios.post("http://localhost:8082/api/series", data).catch(err => {
-        console.log("Error adding series to watching");
-      });
+      axios
+        .post("https://smartroad-watchlist.herokuapp.com/api/series", data)
+        .catch(err => {
+          console.log("Error adding series to watching");
+        });
       return {
         ...state,
         watchlist: state.watchlist.filter(
@@ -53,9 +57,11 @@ const AppReducer = (state, action) => {
 
     case "ADD_SERIES_TO_WATCHED":
       data.watch_status = "watched";
-      axios.post("http://localhost:8082/api/series", data).catch(err => {
-        console.log("Error adding series to watching");
-      });
+      axios
+        .post("https://smartroad-watchlist.herokuapp.com/api/series", data)
+        .catch(err => {
+          console.log("Error adding series to watching");
+        });
       return {
         ...state,
         watchlist: state.watchlist.filter(
@@ -69,7 +75,9 @@ const AppReducer = (state, action) => {
 
     case "REMOVE_FROM_WATCHLIST":
       axios
-        .delete(`http://localhost:8082/api/series/${action.payload}`)
+        .delete(
+          `http://smartroad-watchlist.herokuapp.com/api/series/${action.payload}`
+        )
         .catch(err => {
           console.log("Error removing series from watchlist");
         });
@@ -81,7 +89,9 @@ const AppReducer = (state, action) => {
       };
     case "REMOVE_FROM_WATCHING":
       axios
-        .delete(`http://localhost:8082/api/series/${action.payload}`)
+        .delete(
+          `https://smartroad-watchlist.herokuapp.com/api/series/${action.payload}`
+        )
         .catch(err => {
           console.log("Error removing series from watching");
         });
@@ -93,7 +103,9 @@ const AppReducer = (state, action) => {
       };
     case "REMOVE_FROM_WATCHED":
       axios
-        .delete(`http://localhost:8082/api/series/${action.payload}`)
+        .delete(
+          `https://smartroad-watchlist.herokuapp.com/api/series/${action.payload}`
+        )
         .catch(err => {
           console.log("Error removing series from watched");
         });
@@ -106,9 +118,11 @@ const AppReducer = (state, action) => {
 
     case "MOVE_TO_WATCHLIST":
       data.watch_status = "watchlist";
-      axios.post("http://localhost:8082/api/series", data).catch(err => {
-        console.log("Error adding series to watching");
-      });
+      axios
+        .post("https://smartroad-watchlist.herokuapp.com/api/series", data)
+        .catch(err => {
+          console.log("Error adding series to watching");
+        });
       return {
         ...state,
         watchlist: [data, ...state.watchlist],
@@ -121,9 +135,11 @@ const AppReducer = (state, action) => {
       };
     case "MOVE_TO_WATCHING":
       data.watch_status = "watching";
-      axios.post("http://localhost:8082/api/series", data).catch(err => {
-        console.log("Error adding series to watching");
-      });
+      axios
+        .post("https://smartroad-watchlist.herokuapp.com/api/series", data)
+        .catch(err => {
+          console.log("Error adding series to watching");
+        });
 
       return {
         ...state,
@@ -137,9 +153,11 @@ const AppReducer = (state, action) => {
       };
     case "MOVE_TO_WATCHED":
       data.watch_status = "watched";
-      axios.post("http://localhost:8082/api/series", data).catch(err => {
-        console.log("Error adding series to watching");
-      });
+      axios
+        .post("https://smartroad-watchlist.herokuapp.com/api/series", data)
+        .catch(err => {
+          console.log("Error adding series to watching");
+        });
       return {
         ...state,
         watchlist: state.watchlist.filter(

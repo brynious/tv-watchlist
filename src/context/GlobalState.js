@@ -31,7 +31,9 @@ export const GlobalProvider = props => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8082/api/series/status=watchlist")
+      .get(
+        "https://smartroad-watchlist.herokuapp.com/api/series/status=watchlist"
+      )
       .then(response => {
         dispatch({
           type: "INITIALIZE_WATCHLIST",
@@ -39,7 +41,9 @@ export const GlobalProvider = props => {
         });
       });
     axios
-      .get("http://localhost:8082/api/series/status=watching")
+      .get(
+        "https://smartroad-watchlist.herokuapp.com/api/series/status=watching"
+      )
       .then(response => {
         dispatch({
           type: "INITIALIZE_WATCHING",
@@ -47,7 +51,9 @@ export const GlobalProvider = props => {
         });
       });
     axios
-      .get("http://localhost:8082/api/series/status=watched")
+      .get(
+        "https://smartroad-watchlist.herokuapp.com/api/series/status=watched"
+      )
       .then(response => {
         dispatch({
           type: "INITIALIZE_WATCHED",
