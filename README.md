@@ -16,7 +16,7 @@ These are the following changes I made:
 
 ## Purpose
 
-Created to learnt he MERN stack and also help my flatmates and I track some of the television shows we're watching together.
+Created to learn the MERN stack and also help my flatmates and I track some of the television shows we're watching together.
 
 ## Running on local
 
